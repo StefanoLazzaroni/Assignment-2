@@ -37,5 +37,25 @@ public class TakeAwayBillImplementationTest {
         }
     }
     
+    @Test
+    public void test50PercentDiscount() {
+        List<MenuItem> list = new ArrayList<MenuItem>();
+        list.add(new MenuItem(ItemType.Bevande, "Birra", 5));
+        list.add(new MenuItem(ItemType.Panini, "Paninozzo", 7));
+        list.add(new MenuItem(ItemType.Panini, "Paninozzo 2", 6));
+        list.add(new MenuItem(ItemType.Panini, "Paninozzo", 3));
+        list.add(new MenuItem(ItemType.Panini, "Paninozzo 2", 2));
+        list.add(new MenuItem(ItemType.Panini, "Paninozzo 3", 3));
+        list.add(new MenuItem(ItemType.Bevande, "Birra", 5));
+        list.add(new MenuItem(ItemType.Panini, "Paninozzo 3", 4));
+        list.add(new MenuItem(ItemType.Panini, "Paninozzo 2", 2));
+        list.add(new MenuItem(ItemType.Bevande, "Birra", 5));        
+        try{
+            assertEquals(41, tabi.getOrderPrice(list), 0);
+        }catch(TakeAwayBillException e) {
+            fail("Exception");
+        }
+    }
+    
     
 }
