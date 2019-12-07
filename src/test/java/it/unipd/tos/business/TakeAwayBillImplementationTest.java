@@ -86,4 +86,12 @@ public class TakeAwayBillImplementationTest {
         }
     }
     
+    @Test(expected = TakeAwayBillException.class)
+    public void testMoreThan30Orders() throws TakeAwayBillException{
+        List<MenuItem> list = new ArrayList<MenuItem>();
+        for(int i = 0; i < 50; i++) {
+            list.add(new MenuItem(ItemType.Panini, "Paninozzo 2", 6));
+        }
+        tabi.getOrderPrice(list);
+    }
 }

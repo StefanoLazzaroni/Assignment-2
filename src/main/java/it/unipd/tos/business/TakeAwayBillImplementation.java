@@ -17,6 +17,9 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
         double min = 0;
         double sandwichNum = 0;
         double costoPaniniFritti = 0;
+        if(itemsOrdered.size()>30) {
+            throw new TakeAwayBillException("Ordine troppo grande");
+        }
         for(int i = 0; i < itemsOrdered.size(); i++) {
             if(itemsOrdered.get(i).getItemType()==ItemType.Panini) {
                 if(sandwichNum==0) {
