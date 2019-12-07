@@ -6,7 +6,6 @@ package it.unipd.tos.business;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,15 +84,6 @@ public class TakeAwayBillImplementationTest {
         }catch(TakeAwayBillException e) {
             fail("Exception");
         }
-    }
-    
-    @Test(expected = TakeAwayBillException.class)
-    public void testExceptionMore30Orders() throws TakeAwayBillException{
-        List<MenuItem> list = new ArrayList<MenuItem>();
-        for(int i = 0; i<31; i++) {
-            list.add(new MenuItem(ItemType.Panini, "Paninozzo 2", 9));
-        }
-        tabi.getOrderPrice(list);
     }
     
 }
