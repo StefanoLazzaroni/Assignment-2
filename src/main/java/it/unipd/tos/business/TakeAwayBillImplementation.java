@@ -16,6 +16,7 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
         double totale = 0;
         double min = 0;
         double sandwichNum = 0;
+        double costoPaniniFritti = 0;
         for(int i = 0; i < itemsOrdered.size(); i++) {
             if(itemsOrdered.get(i).getItemType()==ItemType.Panini) {
                 if(sandwichNum==0) {
@@ -27,10 +28,17 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
                 }
                 sandwichNum++;
             }
+            if(itemsOrdered.get(i).getItemType()==ItemType.Panini ||
+                    itemsOrdered.get(i).getItemType()==ItemType.Fritti) {
+                costoPaniniFritti+=itemsOrdered.get(i).getPrice();
+            }
             totale += itemsOrdered.get(i).getPrice();
         }
         if(sandwichNum>5) {
             totale-=min/2;
+        }
+        if(costoPaniniFritti>50) {
+            totale-=totale*0.1;
         }
         return totale;
     }
