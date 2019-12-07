@@ -94,4 +94,27 @@ public class TakeAwayBillImplementationTest {
         }
         tabi.getOrderPrice(list);
     }
+    
+    @Test
+    public void testSupplement() {
+        List<MenuItem> list = new ArrayList<MenuItem>();
+        
+        list.add(new MenuItem(ItemType.Bevande, "Acqua", 2));
+        list.add(new MenuItem(ItemType.Bevande, "Vino", 3));
+        try{
+            assertEquals(5.5, tabi.getOrderPrice(list), 0);
+        }catch(TakeAwayBillException e) {
+            fail("Exception");
+        }
+    }
+    
+    @Test
+    public void testSupplement0Items() {
+        List<MenuItem> list = new ArrayList<MenuItem>();
+        try{
+            assertEquals(0, tabi.getOrderPrice(list), 0);
+        }catch(TakeAwayBillException e) {
+            fail("Exception");
+        }
+    }
 }

@@ -14,7 +14,7 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
     public double getOrderPrice(List<MenuItem> itemsOrdered) 
             throws TakeAwayBillException {
         double totale = 0;
-        double min = 0;
+        double min = Double.MAX_VALUE;
         double sandwichNum = 0;
         double costoPaniniFritti = 0;
         if(itemsOrdered.size()>30) {
@@ -22,18 +22,15 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
         }
         for(int i = 0; i < itemsOrdered.size(); i++) {
             if(itemsOrdered.get(i).getItemType()==ItemType.Panini) {
-                if(sandwichNum==0) {
+                if(itemsOrdered.get(i).getPrice()<min) {
                     min = itemsOrdered.get(i).getPrice();
-                }else {
-                    if(itemsOrdered.get(i).getPrice()<min) {
-                        min = itemsOrdered.get(i).getPrice();
-                    }
                 }
                 sandwichNum++;
-            }
-            if(itemsOrdered.get(i).getItemType()==ItemType.Panini ||
-                    itemsOrdered.get(i).getItemType()==ItemType.Fritti) {
                 costoPaniniFritti+=itemsOrdered.get(i).getPrice();
+            }else {
+                if(itemsOrdered.get(i).getItemType()!=ItemType.Bevande) {
+                    costoPaniniFritti+=itemsOrdered.get(i).getPrice();
+                }
             }
             totale += itemsOrdered.get(i).getPrice();
         }
@@ -42,6 +39,10 @@ public class TakeAwayBillImplementation implements TakeAwayBill {
         }
         if(costoPaniniFritti>50) {
             totale-=totale*0.1;
+        }else {
+            if(totale != 0 && totale<10) {
+                totale+=0.5;
+            }
         }
         return totale;
     }
